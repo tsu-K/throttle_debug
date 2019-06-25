@@ -4,15 +4,14 @@
   <arg name="to" default="50" />
   <arg name="array_size_1" default="10" />
   <arg name="array_size_2" default="10" />
+  <arg name="stamped" default="False" />
 
   <node name="double_array_publisher"
         pkg="throttle_debug" type= "double_array_publisher.py" output="screen">
     <param name="array_size_1" value="$(arg array_size_1)" />
     <param name="array_size_2" value="$(arg array_size_2)" />
     <param name="publish_rate" value="$(arg from)" />
-    <rosparam>
-      with_header: False
-    </rosparam>
+    <param name="with_header" value="$(arg stamped)" />
   </node>
 
   <node name="tools_throttle"
