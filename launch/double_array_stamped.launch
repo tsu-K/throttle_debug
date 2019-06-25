@@ -1,0 +1,24 @@
+<launch>
+
+  <arg name="from" default="125" />
+  <arg name="to" default="50" />
+  <arg name="array_size_1" default="10" />
+  <arg name="array_size_2" default="10" />
+
+  <node name="double_array_publisher"
+        pkg="throttle_debug" type= "double_array_publisher.py" output="screen">
+    <param name="array_size_1" value="$(arg array_size_1)" />
+    <param name="array_size_2" value="$(arg array_size_2)" />
+    <param name="publish_rate" value="$(arg from)" />
+    <rosparam>
+      with_header: True
+    </rosparam>
+  </node>
+
+  <node name="tools_throttle"
+        pkg="topic_tools" type= "throttle" args="messages /hoge $(arg to)" output="screen"/>
+
+  <node name="rostopic_hz"
+        pkg="rostopic" type="rostopic" args="hz /hoge_throttle" output="screen"/>
+
+</launch>
